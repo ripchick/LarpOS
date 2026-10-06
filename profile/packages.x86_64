@@ -56,7 +56,6 @@ pipewire-pulse
 plasma-desktop
 plasma-nm
 plasma-pa
-plasma-wayland-session
 plasma-workspace
 python
 python-pip
