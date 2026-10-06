@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 script_cmdline() {
     local param
@@ -15,29 +15,27 @@ script_cmdline() {
 automated_script() {
     local script rt
     script="$(script_cmdline)"
-    if [[ -n "${script}" && ! -x /tmp/startup_script ]]; then
-        if [[ "${script}" =~ ^((http|https|ftp|tftp)://) ]]; then
+    if [[ -n "${script}" && ! -f "/tmp/.automated_script.sh" ]]; then
+        if [[ "${script}" == "http://"* || "${script}" == "https://"* || "${script}" == "ftp://"* ]]; then
             printf '%s: downloading %s\n' "$0" "${script}"
-            # there's no synchronization for network availability before executing this script; to ensure the network
-            # is online, we use a transient systemd service that depends on network-online.target to download the
-            # script rather than manually polling the target
-            systemd-run --pty --quiet -p Wants=network-online.target -p After=network-online.target \
-                curl "${script}" --location --retry-connrefused --retry 10 --fail -s -o /tmp/startup_script
-            rt=$?
+            curl -Ls "${script}" > "/tmp/.automated_script.sh"
         else
-            cp "${script}" /tmp/startup_script
-            rt=$?
+            cp "${script}" "/tmp/.automated_script.sh"
         fi
-        if [[ ${rt} -eq 0 ]]; then
-            chmod +x /tmp/startup_script
-            printf '%s: executing automated script\n' "$0"
-            # note that script is executed when other services (like pacman-init) may be still in progress, please
-            # synchronize to "systemctl is-system-running --wait" when your script depends on other services
-            /tmp/startup_script
+        printf '\n'
+        printf '%s: executing %s\n' "$0" "${script}"
+        chmod +x "/tmp/.automated_script.sh"
+        rt=0
+        . "/tmp/.automated_script.sh" 2>/dev/null || rt=$?
+        printf '\n'
+        if [ "${rt}" -ne 0 ]; then
+            echo "Script execution failed. Exiting to emergency shell."
+            exit ${rt}
         fi
+        touch "/tmp/.automated_script.sh"
     fi
 }
 
-if [[ $(tty) == "/dev/tty1" ]]; then
+if [[ "$(tty)" == "/dev/tty1" ]]; then
     automated_script
 fi

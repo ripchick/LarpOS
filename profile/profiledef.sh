@@ -5,7 +5,7 @@
 # Arch-based live/install ISO, built with archiso.
 iso_name="larpos"
 iso_label="LARPOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
-iso_publisher="LarpOS Project <https://github.com/YOUR-USERNAME/larpos-linux>"
+iso_publisher="LarpOS Project <https://github.com/larpos>"
 iso_application="LarpOS Live/Install DVD (Arch Linux based, Blood Moon edition)"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="larpos"
