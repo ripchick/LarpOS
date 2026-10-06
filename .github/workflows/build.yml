@@ -66,13 +66,13 @@ jobs:
           ISO=$(ls out/*.iso | head -n1)
           SIZE_MB=$(du -m "$ISO" | cut -f1)
           if [ "$SIZE_MB" -le 1900 ]; then
-            echo "FILES_PATHS=out/*.iso out/SHA256SUMS" >> "$GITHUB_ENV"
+            echo "FILES_PATHS=out/*.iso,out/SHA256SUMS" >> "$GITHUB_ENV"
           else
             BASE=$(basename "$ISO")
             cd out
             split -b 1900M -d "$BASE" "$BASE.part-"
             cd ..
-            echo "FILES_PATHS=out/${BASE}.part-* out/SHA256SUMS" >> "$GITHUB_ENV"
+            echo "FILES_PATHS=out/${BASE}.part-*,out/SHA256SUMS" >> "$GITHUB_ENV"
             echo "ISO is ${SIZE_MB} MiB - released as parts. Reassemble:" >> "$GITHUB_STEP_SUMMARY"
             echo "\`cat ${BASE}.part-* > ${BASE}\`" >> "$GITHUB_STEP_SUMMARY"
           fi
