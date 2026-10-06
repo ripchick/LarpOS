@@ -1,0 +1,3 @@
+#!/bin/bash
+# larp-info - show LarpOS system info with the Blood Moon mask
+exec fastfetch "$@"

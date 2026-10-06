@@ -1,0 +1,11 @@
+// Allow the live user to manage power, disks, time and hostname without auth
+polkit.addRule(function(action, subject) {
+    if (subject.user == "liveuser") {
+        if (action.id.indexOf("org.freedesktop.login1.") == 0 ||
+            action.id.indexOf("org.freedesktop.udisks2.") == 0 ||
+            action.id.indexOf("org.freedesktop.timedate1.") == 0 ||
+            action.id.indexOf("org.freedesktop.hostname1.") == 0) {
+            return polkit.Result.YES;
+        }
+    }
+});

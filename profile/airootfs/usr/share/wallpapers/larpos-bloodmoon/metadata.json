@@ -1,0 +1,13 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "LarpOS Project"
+            }
+        ],
+        "Id": "larpos-bloodmoon",
+        "License": "CC0-1.0",
+        "Name": "LarpOS Blood Moon",
+        "Name[ru]": "LarpOS Кровавая Луна"
+    }
+}

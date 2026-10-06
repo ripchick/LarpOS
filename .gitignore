@@ -1,0 +1,11 @@
+# Build outputs
+out/
+*.iso
+*.img
+work/
+
+# Editor junk
+.vscode/
+.idea/
+*.swp
+.DS_Store
