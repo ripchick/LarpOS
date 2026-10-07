@@ -42,6 +42,7 @@ jobs:
             -v /mnt/larpos-out:/out \
             -v "$GITHUB_WORKSPACE:/build" \
             archlinux:base-devel \
+            pacman-key --init
             bash -e -c 'pacman -Syu --noconfirm archiso curl zstd && KEY=882DCFE48E2051D48E2562ABF3B607488DB35A47 && (pacman-key --recv-keys $KEY --keyserver hkps://keyserver.ubuntu.com:443 && pacman-key --lsign-key $KEY || (curl -fsSL -o /tmp/ck.pkg.tar.zst https://build.cachyos.org/cachyos-keyring-2-1-any.pkg.tar.zst && tar --zstd -xf /tmp/ck.pkg.tar.zst -C /tmp && pacman-key --add /tmp/usr/share/pacman/keyrings/cachyos.gpg && pacman-key --lsign-key $KEY)) && mkarchiso -v -w /work -o /out /build/profile'
 
       - name: Collect results and checksums
