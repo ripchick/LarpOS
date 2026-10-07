@@ -69,5 +69,172 @@ ln -sfn /dev/null /etc/systemd/system/getty@tty1.service
 # Enable fstrim + pacman cache housekeeping for installed systems
 ln -sfn /usr/lib/systemd/system/fstrim.timer /etc/systemd/system/timers.target.wants/fstrim.timer
 
+
+# ---------------------------------------------------------------------------
+# Calamares installer configuration. The cachyos-calamares package ships its
+# own /etc/calamares files; this script runs AFTER package installation via
+# arch-chroot, so writing our configs here overwrites them without pacman
+# file conflicts.
+# ---------------------------------------------------------------------------
+mkdir -p /etc/calamares/branding/larpos /etc/calamares/modules
+
+cat > /etc/calamares/settings.conf <<'EOF_SET'
+modules-search: [ local ]
+
+sequence:
+    show:
+        - welcome
+        - locale
+        - keyboard
+        - partition
+        - users
+        - summary
+    exec:
+        - partition
+        - mount
+        - unpackfs
+        - machineid
+        - fstab
+        - locale
+        - keyboard
+        - localecfg
+        - users
+        - displaymanager
+        - networkcfg
+        - hwclock
+        - services-systemd
+        - bootloader
+        - grubcfg
+        - umount
+
+branding: larpos
+prompt-install: true
+dont-chroot: false
+EOF_SET
+
+cat > /etc/calamares/branding/larpos/branding.desc <<'EOF_BR'
+---
+componentName:  larpos
+
+strings:
+    productName:         LarpOS
+    shortProductName:    LarpOS
+    version:             2.0
+    shortVersion:        2.0
+    versionedName:       LarpOS 2.0 Blood Moon
+    shortVersionedName:  LarpOS 2.0
+    bootloaderEntryName: LarpOS
+
+images:
+    productLogo:         "larpos.png"
+    productIcon:         "larpos.png"
+    productWelcome:      "larpos.png"
+
+slideshow:               "slideshow.qml"
+slideshowAPI:            2
+
+style:
+    sidebarBackground:   "#14090d"
+    sidebarText:         "#e8dfe0"
+    sidebarTextSelect:   "#ff5560"
+EOF_BR
+
+cat > /etc/calamares/branding/larpos/slideshow.qml <<'EOF_QML'
+import QtQuick
+
+Rectangle {
+    id: root
+    color: "#14090d"
+
+    Image {
+        id: logo
+        source: "larpos.png"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 60
+        width: 180
+        height: 180
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Text {
+        anchors.centerIn: parent
+        text: "Welcome to LarpOS"
+        color: "#ff5560"
+        font.pixelSize: 34
+    }
+
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 40
+        text: "Arch-based  -  Hyprland  -  Blood Moon"
+        color: "#e8dfe0"
+        font.pixelSize: 18
+    }
+}
+EOF_QML
+
+cp /usr/share/larpos/branding/logo_256.png /etc/calamares/branding/larpos/larpos.png
+
+cat > /etc/calamares/modules/unpackfs.conf <<'EOF_UNP'
+---
+unpack:
+    -   source: "/run/archiso/bootmnt/arch/x86_64/airootfs.sfs"
+        sourcefs: "squashfs"
+        destination: ""
+EOF_UNP
+
+cat > /etc/calamares/modules/users.conf <<'EOF_USR'
+---
+defaultGroups:
+    - users
+    - wheel
+    - video
+    - audio
+    - storage
+    - input
+autologin: false
+userShell: /bin/zsh
+EOF_USR
+
+cat > /etc/calamares/modules/displaymanager.conf <<'EOF_DM'
+---
+displaymanagers: []
+basicSetup: false
+sysconfigSetup: false
+EOF_DM
+
+cat > /etc/calamares/modules/partition.conf <<'EOF_PRT'
+---
+efiSystemPartition: "/boot/efi"
+efiSystemPartitionSize: "512MiB"
+EOF_PRT
+
+cat > /etc/calamares/modules/bootloader.conf <<'EOF_BLD'
+---
+efiBootLoader: "grub"
+kernel: "/boot/vmlinuz-linux"
+img: "/boot/initramfs-linux.img"
+fallback: "/boot/initramfs-linux-fallback.img"
+timeout: "5"
+kernelLine: "LarpOS Linux"
+fallbackKernelLine: "LarpOS Linux (fallback)"
+grubInstall: "grub-install"
+grubMkconfig: "grub-mkconfig"
+grubCfg: "/boot/grub/grub.cfg"
+EOF_BLD
+
+cat > /etc/calamares/modules/welcome.conf <<'EOF_WLC'
+---
+requirements:
+    requiredStorage: 12
+    requiredMemory: 2048
+    internetCheckUrl: "https://archlinux.org"
+EOF_WLC
+
+# Remove CachyOS installer launcher so only ours shows in the menu
+rm -f /usr/share/applications/calamares*.desktop 2>/dev/null
+
 echo "customize_airootfs.sh run successfully"
 exit 0
