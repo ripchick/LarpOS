@@ -42,7 +42,7 @@ jobs:
             -v /mnt/larpos-out:/out \
             -v "$GITHUB_WORKSPACE:/build" \
             archlinux:base-devel \
-            bash -e -c 'pacman -Syu --noconfirm archiso && mkarchiso -v -w /work -o /out /build/profile'
+            bash -e -c 'pacman -Syu --noconfirm archiso curl && curl -fsSL -o /etc/pacman.d/chaotic-mirrorlist https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist && pacman-key --recv-key 3056538D6B3E6D5B --keyserver hkps://keyserver.ubuntu.com:443 && pacman-key --lsign-key 3056538D6B3E6D5B && mkarchiso -v -w /work -o /out /build/profile'
 
       - name: Collect results and checksums
         run: |

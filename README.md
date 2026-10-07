@@ -9,7 +9,7 @@
 ![Arch Based](https://img.shields.io/badge/based%20on-Arch%20Linux-ff5560?style=for-the-badge&logo=archlinux&logoColor=white)
 ![Hyprland](https://img.shields.io/badge/compositor-Hyprland-ff5560?style=for-the-badge&logo=wayland&logoColor=white)
 ![Installer](https://img.shields.io/badge/installer-Calamares-ff5560?style=for-the-badge)
-![Release](https://img.shields.io/badge/release-v1.0%20Blood%20Moon-8a0f20?style=for-the-badge)
+![Release](https://img.shields.io/badge/release-v2.0%20Blood%20Moon-8a0f20?style=for-the-badge)
 
 </div>
 

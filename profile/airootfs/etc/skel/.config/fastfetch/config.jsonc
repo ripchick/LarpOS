@@ -1,90 +1,28 @@
 {
-    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-    "logo": {
-        "source": "/usr/share/larpos/fastfetch-logo.txt",
-        "type": "raw",
-        "padding": {
-            "top": 1,
-            "left": 2,
-            "right": 4
-        }
-    },
-    "display": {
-        "separator": "  ",
-        "color": {
-            "keys": "0.99;0.48;0.27",
-            "title": "0.99;0.20;0.18"
-        }
-    },
-    "modules": [
-        {
-            "type": "custom",
-            "format": "┌────────────── \u001b[38;5;203mBlood Moon\u001b[0m ──────────────┐"
-        },
-        {
-            "type": "title",
-            "key": "  󰌽 user",
-            "format": "{user-name}@{host-name}"
-        },
-        {
-            "type": "os",
-            "key": "  󰣇 os"
-        },
-        {
-            "type": "kernel",
-            "key": "   kernel"
-        },
-        {
-            "type": "de",
-            "key": "   de"
-        },
-        {
-            "type": "wm",
-            "key": "   wm"
-        },
-        {
-            "type": "shell",
-            "key": "  󱆃 shell"
-        },
-        {
-            "type": "terminal",
-            "key": "   tty"
-        },
-        {
-            "type": "packages",
-            "key": "  󰏖 pkgs"
-        },
-        {
-            "type": "uptime",
-            "key": "  󰅐 up"
-        },
-        {
-            "type": "custom",
-            "format": "├──────────────  \u001b[38;5;208mhardware\u001b[0m  ──────────────┤"
-        },
-        {
-            "type": "cpu",
-            "key": "   cpu"
-        },
-        {
-            "type": "gpu",
-            "key": "   gpu"
-        },
-        {
-            "type": "memory",
-            "key": "   ram"
-        },
-        {
-            "type": "swap",
-            "key": "   swap"
-        },
-        {
-            "type": "disk",
-            "key": "   disk"
-        },
-        {
-            "type": "custom",
-            "format": "└─────────────────────────────────────────┘"
-        }
-    ]
+  "logo": {
+    "type": "auto",
+    "source": "/usr/share/larpos/branding/logo_128.png",
+    "width": 24,
+    "padding": { "top": 1, "left": 2, "right": 4 }
+  },
+  "display": { "separator": "  " },
+  "modules": [
+    "title",
+    "separator",
+    { "type": "os",       "key": "OS",       "keyColor": "#ff5560" },
+    { "type": "kernel",   "key": "Kernel",   "keyColor": "#ff5560" },
+    { "type": "uptime",   "key": "Uptime",   "keyColor": "#ff5560" },
+    { "type": "packages", "key": "Packages", "keyColor": "#ff5560" },
+    { "type": "shell",    "key": "Shell",    "keyColor": "#ff8080" },
+    { "type": "wm",       "key": "WM",       "keyColor": "#ff8080" },
+    { "type": "terminal", "key": "Terminal", "keyColor": "#ff8080" },
+    "break",
+    { "type": "cpu",      "key": "CPU",      "keyColor": "#ff5560" },
+    { "type": "gpu",      "key": "GPU",      "keyColor": "#ff5560" },
+    { "type": "memory",   "key": "Memory",   "keyColor": "#ff5560" },
+    { "type": "disk",     "key": "Disk",     "keyColor": "#ff5560" },
+    "break",
+    "colors",
+    "break"
+  ]
 }
