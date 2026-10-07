@@ -1,0 +1,125 @@
+#!/bin/bash
+# =====================================================================
+#  LarpOS App Center — fzf-powered software installer
+#  Blood Moon Edition · Arch based · repo packages only (no AUR)
+# =====================================================================
+set -u
+
+RED=$'\e[38;5;203m'
+ORG=$'\e[38;5;208m'
+GRY=$'\e[38;5;245m'
+RST=$'\e[0m'
+TITLE="LarpOS App Center"
+
+declare -A CATS=(
+    ["🌐 Browsers"]="chromium|Web browser (Chromium)
+librewolf|Privacy-focused Firefox fork
+thunderbird|Email client"
+    ["💬 Communication"]="discord|Voice & text chat
+telegram-desktop|Telegram messenger
+element-desktop|Matrix client"
+    ["💻 Development"]="code|Visual Studio Code (OSS build)
+neovim|Modern vim
+dbeaver|Database manager
+bruno|Lightweight API client
+httpie|CLI HTTP client
+meld|Diff/merge tool"
+    ["🎨 Graphics & Media"]="krita|Digital painting
+blender|3D creation suite
+kdenlive|Video editor
+audacity|Audio editor
+mpv|Minimal video player
+musescore|Music notation
+darktable|Photo workflow"
+    ["🎮 Games"]="steam|Steam (requires multilib — enabled in this ISO)
+lutris|Game launcher for Linux
+gamemode|Performance governor for games
+mangohud|Game performance overlay"
+    ["📚 Office & Docs"]="xournalpp|Handwriting & PDF notes
+zathura|Minimal PDF reader
+calibre|E-book manager
+hugo|Static site generator"
+    ["🛠 System & Utils"]="btop|Fancy resource monitor
+tldr|Simplified man pages
+ncdu|NCurses disk usage
+timeshift|System restore snapshots
+veracrypt|Disk encryption
+filezilla|FTP client
+qbittorrent|Torrent client
+virt-manager|KVM virtual machine manager"
+)
+
+about_project() {
+    clear
+    cat << 'EOF'
+
+        ▲                                    ▲
+   ▄▄▄▄▄▄▄▄▄▄▄▄   LarpOS — Blood Moon    ▄▄▄▄▄▄▄▄▄▄▄▄
+
+   Arch-based live Linux with a themed Hyprland desktop,
+   a graphical installer (Calamares) and a Blood Moon look.
+
+   • Site/Releases : github.com/larpos
+   • Base          : Arch Linux (rolling)
+   • DE            : Hyprland + Waybar + Wofi
+   • Installer     : Calamares ("Install LarpOS")
+   • This tool     : larpos-apps  (fzf TUI)
+
+   Live session hints:
+     - user  : liveuser (sudo without password)
+     - keys  : Super+Enter terminal · Super+D apps · Super+Q close
+     - tty   : tty2 is a spare autologin console (Ctrl+Alt+F2)
+
+   LarpOS is a community project and is not affiliated
+   with or endorsed by Arch Linux.
+
+   press Enter to return to the menu…
+EOF
+    read -r
+}
+
+pick_and_install() {
+    local cat="$1"
+    local list="${CATS[$cat]}"
+    local pick
+    pick=$(echo "$list" | grep -v '|—$' | fzf --prompt="$cat ▸ " \
+        --delimiter='|' --with-nth=1 \
+        --preview='p="{1}"; p="${p%%|*}"; echo "== $p =="; pacman -Si "$p" 2>/dev/null | sed -n "1,12p" || echo "no repo info"' \
+        --preview-window=right:60%:wrap \
+        --color='bg+:#1a1a22,fg:#e8e6e3,hl:#e0342f,fg+:#ffffff,hl+:#ff7a45,prompt:#e0342f,header:#ff7a45,border:#e0342f,info:#6b6b78' \
+        --header='TAB/SHIFT-TAB = multi-select · ENTER = install selection · ESC = back' \
+        --multi --height=90% --reverse --border=rounded) || return 0
+    local pkgs
+    pkgs=$(echo "$pick" | cut -d'|' -f1 | tr '\n' ' ')
+    [ -z "${pkgs// /}" ] && return 0
+    echo
+    echo "${ORG}>> installing:${RST} $pkgs"
+    sudo pacman -S --needed $pkgs
+    echo
+    read -rp "Enter to continue…"
+}
+
+menu() {
+    while true; do
+        sel=$(printf '%s\n' "${!CATS[@]}" | sort | \
+            fzf --prompt=" ┌ $TITLE ┐ ▸ " \
+            --color='bg:#0d0d12,bg+:#1a1a22,fg:#e8e6e3,hl:#e0342f,fg+:#ffffff,hl+:#ff7a45,prompt:#e0342f,header:#ff7a45,border:#e0342f,info:#6b6b78,pointer:#e0342f' \
+            --header=" TAB multi-select inside categories · ESC quit" \
+            --height=70% --reverse --border=rounded \
+            --bind "esc:abort") || { echo; echo "${RED}The moon sets. Goodbye.${RST}"; exit 0; }
+        case "$sel" in
+            "ℹ About project") about_project ;;
+            *) pick_and_install "$sel" ;;
+        esac
+    done
+}
+
+main() {
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "fzf is required (it ships with LarpOS)"; exit 1
+    fi
+    CATS["ℹ About project"]="about"
+    menu
+}
+
+main "$@"

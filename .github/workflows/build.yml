@@ -13,6 +13,9 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+# Required for softprops/action-gh-release: since Feb 2023 GITHUB_TOKEN
+# defaults to read-only, and creating a Release needs contents:write.
+# Without this the release step fails with 403 "Resource not accessible by integration".
 permissions:
   contents: write
 
@@ -86,14 +89,14 @@ jobs:
         with:
           name: LarpOS ${{ github.ref_name }} (Blood Moon)
           body: |
-            **LarpOS Linux Edition - Blood Moon** (Arch Linux based)
+            **LarpOS Linux Edition - Blood Moon** (Arch Linux based, Hyprland Edition)
 
             Download `*.iso` (or all `.part-*` chunks and reassemble with
             `cat larpos-*.iso.part-* > larpos-*.iso`), verify with `SHA256SUMS`,
             then write the ISO to USB with Rufus (DD mode), Ventoy or `dd`.
 
-            Boot, log in automatically as `liveuser` (KDE Plasma),
-            then run `sudo archinstall` to install.
+            Boot, log in automatically as `liveuser` (Hyprland + Waybar),
+            run **Install LarpOS** from the app launcher (Super+D) to install.
 
             *LarpOS is not affiliated with or endorsed by Arch Linux.*
           files: ${{ env.FILES_PATHS }}

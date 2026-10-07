@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install LarpOS
+GenericName=System Installer
+Comment=Install LarpOS Blood Moon to your disk
+Exec=larpos-install
+Icon=/usr/share/larpos/logo-64.png
+Terminal=false
+Categories=System;Installer;
+Keywords=larpos;install;calamares;
+StartupNotify=true

@@ -1,0 +1,11 @@
+// LarpOS live: passwordless system operations for liveuser
+polkit.addRule(function(action, subject) {
+    if (subject.user == "liveuser") {
+        if (action.id.indexOf("org.freedesktop.udisks2.") == 0 ||
+            action.id.indexOf("org.freedesktop.networkmanager.") == 0 ||
+            action.id.indexOf("org.freedesktop.timedate1.") == 0 ||
+            action.id.indexOf("org.freedesktop.hostname1.") == 0) {
+            return polkit.Result.YES;
+        }
+    }
+});

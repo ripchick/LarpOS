@@ -1,14 +1,11 @@
-LarpOS - Blood Moon (Arch Linux based live system)
 
-  Quick start:
-    - Desktop autologins as "liveuser" (KDE Plasma, Blood Moon theme)
-    - Open a terminal and run "sudo archinstall" to install to disk
-    - "larp-info" shows system info with the LarpOS mask
-    - Internet: NetworkManager - use the network icon in the system tray
-      or "nmtui" in a terminal
+   ▄▄▄▄▄▄▄                                ▄▄▄▄▄▄▄
+ ██████████      LarpOS 2.0 Blood Moon   ██████████
+  ▀██████▀      Hyprland Edition          ▀██████▀
+    ▀██▀      Arch Linux based live ISO     ▀██▀
 
-  Packages are managed with pacman. AUR helpers (yay, paru) can be
-  installed after installing the system to disk.
+  * Auto-logged in as `liveuser` (sudo without password)
+  * App Center:  larpos-apps
+  * Installer:   `Install LarpOS` in the app launcher
+  * Help:        wiki.archlinux.org  ·  github.com/larpos
 
-  LarpOS is an independent distribution based on Arch Linux.
-  It is not affiliated with or endorsed by Arch Linux or Mr. Robot.

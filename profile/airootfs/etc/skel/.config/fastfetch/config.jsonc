@@ -1,0 +1,90 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "source": "/usr/share/larpos/fastfetch-logo.txt",
+        "type": "raw",
+        "padding": {
+            "top": 1,
+            "left": 2,
+            "right": 4
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "color": {
+            "keys": "0.99;0.48;0.27",
+            "title": "0.99;0.20;0.18"
+        }
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "┌────────────── \u001b[38;5;203mBlood Moon\u001b[0m ──────────────┐"
+        },
+        {
+            "type": "title",
+            "key": "  󰌽 user",
+            "format": "{user-name}@{host-name}"
+        },
+        {
+            "type": "os",
+            "key": "  󰣇 os"
+        },
+        {
+            "type": "kernel",
+            "key": "   kernel"
+        },
+        {
+            "type": "de",
+            "key": "   de"
+        },
+        {
+            "type": "wm",
+            "key": "   wm"
+        },
+        {
+            "type": "shell",
+            "key": "  󱆃 shell"
+        },
+        {
+            "type": "terminal",
+            "key": "   tty"
+        },
+        {
+            "type": "packages",
+            "key": "  󰏖 pkgs"
+        },
+        {
+            "type": "uptime",
+            "key": "  󰅐 up"
+        },
+        {
+            "type": "custom",
+            "format": "├──────────────  \u001b[38;5;208mhardware\u001b[0m  ──────────────┤"
+        },
+        {
+            "type": "cpu",
+            "key": "   cpu"
+        },
+        {
+            "type": "gpu",
+            "key": "   gpu"
+        },
+        {
+            "type": "memory",
+            "key": "   ram"
+        },
+        {
+            "type": "swap",
+            "key": "   swap"
+        },
+        {
+            "type": "disk",
+            "key": "   disk"
+        },
+        {
+            "type": "custom",
+            "format": "└─────────────────────────────────────────┘"
+        }
+    ]
+}

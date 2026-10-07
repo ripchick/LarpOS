@@ -1,11 +1,15 @@
 # Build outputs
-out/
+build/
+ready/
+*.o
+*.elf
 *.iso
 *.img
-work/
 
-# Editor junk
+# Editor / OS noise
 .vscode/
 .idea/
 *.swp
+*~
 .DS_Store
+Thumbs.db

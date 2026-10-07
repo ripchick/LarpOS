@@ -1,1 +1,4 @@
-liveuser ALL=(ALL) NOPASSWD: ALL
+# LarpOS live user: passwordless sudo (incl. env preservation for Wayland apps)
+Defaults env_keep += "XDG_RUNTIME_DIR WAYLAND_DISPLAY DISPLAY QT_QPA_PLATFORM"
+liveuser ALL=(ALL:ALL) NOPASSWD: ALL
+liveuser ALL=(ALL:ALL) NOPASSWD: SETENV: ALL

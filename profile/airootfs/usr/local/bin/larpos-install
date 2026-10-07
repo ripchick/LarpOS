@@ -1,0 +1,17 @@
+#!/bin/bash
+# LarpOS installer launcher: runs Calamares as root with the live user's
+# Wayland session environment so the Qt6 GUI appears on Hyprland.
+set -e
+
+uid=$(id -u)
+xdg_rt="/run/user/${uid}"
+
+wayland_sock=$(ls "${xdg_rt}"/wayland-* 2>/dev/null | head -n1 | xargs -n1 basename 2>/dev/null || true)
+
+export QT_QPA_PLATFORM=wayland
+export XDG_RUNTIME_DIR="${xdg_rt}"
+[ -n "${wayland_sock}" ] && export WAYLAND_DISPLAY="${wayland_sock}"
+export XDG_CURRENT_DESKTOP=KDE   # calamares picks a sane Qt style
+unset QT_AUTO_SCREEN_SCALE_FACTOR
+
+exec sudo -E calamares "$@"

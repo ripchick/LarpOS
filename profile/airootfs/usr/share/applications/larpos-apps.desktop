@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=LarpOS App Center
+GenericName=Software Installer
+Comment=Browse and install software (fzf powered)
+Exec=kitty --class larpos-apps -e larpos-apps
+Icon=/usr/share/larpos/logo-64.png
+Terminal=false
+Categories=System;PackageManager;
+Keywords=larpos;apps;software;packages;
+StartupNotify=true

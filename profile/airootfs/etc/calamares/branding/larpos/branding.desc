@@ -1,0 +1,25 @@
+---
+componentName: larpos
+
+strings:
+    productName:         "LarpOS"
+    shortProductName:    "LarpOS"
+    version:             "2.0"
+    shortVersion:        "2.0"
+    versionedName:       "LarpOS 2.0 Blood Moon"
+    shortVersionedName:  "LarpOS 2.0"
+    bootloaderEntryName: "LarpOS"
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "logo.png"
+    productWelcome:      "logo.png"
+
+slideshow:               "show.qml"
+slideshowAPI:            2
+
+style:
+    sidebarBackground:   "#0d0d12"
+    sidebarSelect:       "#e0342f"
+    sidebarText:         "#e8e6e3"
+    sidebarTextSelect:   "#ffffff"

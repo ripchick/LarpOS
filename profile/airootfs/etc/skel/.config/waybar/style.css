@@ -1,0 +1,65 @@
+/* LarpOS Blood Moon — waybar style */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 12px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(13, 13, 18, 0.85);
+    border: 1px solid rgba(224, 52, 47, 0.35);
+    border-radius: 10px;
+    color: #e8e6e3;
+}
+
+#workspaces {
+    background: transparent;
+    margin: 2px 4px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    color: #6b6b78;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+#workspaces button.active {
+    color: #e0342f;
+    background: rgba(224, 52, 47, 0.15);
+}
+
+#workspaces button:hover {
+    color: #ff7a45;
+    background: rgba(255, 122, 69, 0.12);
+}
+
+#window {
+    color: #c9c7c2;
+    font-style: italic;
+    margin: 0 8px;
+}
+
+#clock {
+    color: #ff7a45;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+#network, #pulseaudio, #battery, #tray {
+    padding: 0 8px;
+    color: #e8e6e3;
+}
+
+#battery.warning {
+    color: #ffb347;
+}
+
+#battery.critical {
+    color: #e0342f;
+    animation: blink 1s linear infinite alternate;
+}
+
+@keyframes blink {
+    to { color: #ff5c55; }
+}
