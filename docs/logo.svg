@@ -1,0 +1,28 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="moon" cx="0.40" cy="0.36" r="0.80">
+      <stop offset="0%" stop-color="#d33a42"/>
+      <stop offset="55%" stop-color="#991822"/>
+      <stop offset="100%" stop-color="#520b12"/>
+    </radialGradient>
+    <linearGradient id="arch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff5a67"/>
+      <stop offset="42%" stop-color="#d81e34"/>
+      <stop offset="100%" stop-color="#8a0f20"/>
+    </linearGradient>
+    <linearGradient id="rimL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffe0e0" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#ff8a8a" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#ff4040" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rimR" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffc9c9" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#ff7070" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <circle cx="512" cy="430" r="300" fill="url(#moon)"/>
+  <path d="M512,90 C468,330 330,640 110,910 L400,910 L512,730 L624,910 L914,910 C694,640 556,330 512,90 Z" fill="url(#arch)"/>
+  <path d="M512,90 C468,330 330,640 110,910" fill="none" stroke="url(#rimL)" stroke-width="9" stroke-linecap="round"/>
+  <path d="M512,90 C556,330 694,640 914,910" fill="none" stroke="url(#rimR)" stroke-width="6" stroke-linecap="round"/>
+</svg>
